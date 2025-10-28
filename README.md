@@ -18,6 +18,22 @@ Core features:
 - Cross-validation and out-of-sample testing  
 - Correlation polarity alignment  
 - Comprehensive performance metrics (ACC, AUC, SEN, SPC, PPV, NPV, OR, LR⁺, ρ, p-value)
+---
+
+## Data Privacy Notice
+Due to clinical confidentiality agreements, the original EEG datasets used for this research cannot be shared publicly.  
+However, the **entire analysis pipeline**, algorithms, and reproducible code structure are provided here to ensure transparency and demonstrate the complete workflow.  
+All processing, feature extraction, and evaluation steps can be executed using synthetic or anonymized EEG data.
+
+---
+
+## Skills Demonstrated
+- **MATLAB** — advanced signal processing, data structures, and parallelization  
+- **EEG Preprocessing** — filtering, normalization, and artifact exclusion  
+- **Feature Extraction** — Linear Predictive Coding (LPC), LEAPD indices, and hyperplane distance computation  
+- **Statistical Analysis** — correlation (Spearman), classification metrics (ACC, AUC, SEN, SPC, PPV, NPV, OR, LR⁺)  
+- **Algorithm Design** — parameter search grids, LOOCV, and progressive multi-channel combination logic  
+- **Reproducible Research** — modular pipeline design with documentation, version control (Git), and open-source licensing  
 
 ---
 
@@ -71,22 +87,5 @@ cfg2.max_full_combos = 5;
 results_test = main_test(cfg2);
 
 
----
 
-## Data Privacy Notice
-Due to clinical confidentiality agreements, the original EEG datasets used for this research cannot be shared publicly.  
-However, the **entire analysis pipeline**, algorithms, and reproducible code structure are provided here to ensure transparency and demonstrate the complete workflow.  
-All processing, feature extraction, and evaluation steps can be executed using synthetic or anonymized EEG data.
-
----
-
-## Skills Demonstrated
-- **MATLAB** — advanced signal processing, data structures, and parallelization  
-- **EEG Preprocessing** — filtering, normalization, and artifact exclusion  
-- **Feature Extraction** — Linear Predictive Coding (LPC), LEAPD indices, and hyperplane distance computation  
-- **Statistical Analysis** — correlation (Spearman), classification metrics (ACC, AUC, SEN, SPC, PPV, NPV, OR, LR⁺)  
-- **Algorithm Design** — parameter search grids, LOOCV, and progressive multi-channel combination logic  
-- **Reproducible Research** — modular pipeline design with documentation, version control (Git), and open-source licensing  
-
----
 
