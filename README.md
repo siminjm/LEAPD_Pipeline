@@ -42,28 +42,27 @@ LEAPD_Pipeline/
 ├── main_train.m
 ├── main_test.m
 ├── +utils/
-│ ├── load_data.m
-│ ├── filter_data.m
-│ ├── create_filter.m
-│ ├── compute_yw.m
-│ ├── build_hyperplanes.m
-│ ├── compute_leapd_scores.m
-│ ├── evaluate_classification.m
-│ ├── evaluate_correlation.m
-│ ├── combine_scores.m
-│ ├── generate_combinations.m
-│ ├── pick_polarity_and_rho.m
-│ ├── read_labels_table.m
-│ ├── fetch_targets.m
-│ ├── count_subjects.m
-│ └── save_results.m
+│   ├── load_data.m
+│   ├── filter_data.m
+│   ├── create_filter.m
+│   ├── compute_yw.m
+│   ├── build_hyperplanes.m
+│   ├── compute_leapd_scores.m
+│   ├── evaluate_classification.m
+│   ├── evaluate_correlation.m
+│   ├── combine_scores.m
+│   ├── generate_combinations.m
+│   ├── pick_polarity_and_rho.m
+│   ├── read_labels_table.m
+│   ├── fetch_targets.m
+│   ├── count_subjects.m
+│   └── save_results.m
 ├── results/
-│ ├── train_results/
-│ └── test_results/
+│   ├── train_results/
+│   └── test_results/
 ├── README.md
 ├── LICENSE
 └── .gitignore
-
 ---
 
 ## Quick Start
@@ -84,7 +83,3 @@ cfg2.trained_model = "results/train_results/BestParamsAll.mat";
 cfg2.combo_sizes   = 1:10; 
 cfg2.max_full_combos = 5;
 results_test = main_test(cfg2);
-
-
-
-
