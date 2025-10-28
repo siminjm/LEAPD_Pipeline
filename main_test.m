@@ -45,13 +45,25 @@ ScoresMatrix = NaN(totalSubs, Nch);
 TrueLabels = [];
 TargetVec   = [];
 
-% correlation labels if needed
-labelsMap = containers.Map();
+% ---- Correlation labels (if applicable) ----
+labelsMap = containers.Map();   % initialize empty map
+T = table();                    % predefine to avoid scope errors
+
 if cfg.mode == "correlation" && strlength(cfg.labels_file) > 0
+    fprintf('\n Loading correlation targets from %s...\n', cfg.labels_file);
+
     T = utils.read_labels_table(cfg.labels_file);
-    ids = string(T.ID); y = double(T.Target);
-    for i=1:numel(ids), labelsMap(ids(i)) = y(i); end
+    if isempty(T)
+        warning('No label table loaded; correlation metrics will be skipped.');
+    else
+        ids = string(T.ID);
+        y = double(T.Target);
+        for i = 1:numel(ids)
+            labelsMap(ids(i)) = y(i);
+        end
+    end
 end
+
 
 rowOffset = 0; % fill by first channel size (assumes consistent subject ordering)
 chan_index_map = strings(Nch,1);
@@ -60,22 +72,38 @@ for chIdx = 1:Nch
     P = BestParamsAll(chIdx);
     chData = DataTest(char(ch));
 
-    % Build test subjects list and labels
-    if isfield(chData,'group2') && ~isempty(chData.group2)
-        AllData = [chData.group1, chData.group2];
-        TL = [ones(numel(chData.group1),1); zeros(numel(chData.group2),1)];
-        if cfg.mode=="correlation"
-            grp_ids = [SubjectIDs.(char(ch)).group1; SubjectIDs.(char(ch)).group2];
-            TargetVec = utils.fetch_targets(grp_ids, labelsMap); % allow NaNs
-        end
-    else
-        AllData = chData.group1; TL = ones(numel(AllData),1);
-        if cfg.mode=="correlation"
-            grp_ids = SubjectIDs.(char(ch)).group1;
-            TargetVec = utils.fetch_targets(grp_ids, labelsMap);
-        end
+ % --- Build test subjects list and labels ---
+if isfield(chData,'group2') && ~isempty(chData.group2)
+    AllData = [chData.group1, chData.group2];
+    TL = [ones(numel(chData.group1),1); zeros(numel(chData.group2),1)];
+
+    if cfg.mode == "correlation"
+        grp_ids = [SubjectIDs.(char(ch)).group1; SubjectIDs.(char(ch)).group2];
+        TargetVec = utils.fetch_targets(grp_ids, labelsMap); % allow NaNs
     end
-    if isempty(TrueLabels), TrueLabels = TL; end
+
+else
+    AllData = chData.group1;
+    TL = ones(numel(AllData),1);
+
+    if cfg.mode == "correlation"
+        grp_ids = SubjectIDs.(char(ch)).group1;
+        TargetVec = utils.fetch_targets(grp_ids, labelsMap);
+    end
+end
+
+% --- Safety check for missing targets ---
+if cfg.mode == "correlation" && sum(isnan(TargetVec)) > 0
+    missing = grp_ids(isnan(TargetVec));
+    warn_subset = missing(1:min(5,numel(missing))); % show up to 5 IDs
+    warning('%d of %d subject IDs in test set had no matching entry in %s.\nMissing examples: %s', ...
+        sum(isnan(TargetVec)), numel(TargetVec), cfg.labels_file, strjoin(string(warn_subset), ', '));
+end
+
+if isempty(TrueLabels)
+    TrueLabels = TL;
+end
+
 
     % filter + LPC using trained hyperparams
     Filt = [0 P.cutoff(1) 0; P.cutoff(2) inf 0];
