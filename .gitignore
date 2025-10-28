@@ -1,0 +1,49 @@
+# ===================================
+# MATLAB temporary and autosave files
+# ===================================
+*.asv
+*.m~
+*.mex*
+*.mexw64
+*.mexmaci64
+*.mexglx
+*.slprj/
+*.user.mat
+*.autosave
+*.mdl.autosave
+*.slx.autosave
+
+# ============================
+# MATLAB project configuration
+# ============================
+*.prj
+*.mlproj
+*.matlab
+*.mlappinstall
+
+# ============================
+# OS / editor generated files
+# ============================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.bak
+*.log
+
+# ============================
+# Data and result directories
+# ============================
+data/
+results/**/*.mat
+results/**/*.csv
+results/**/*.xlsx
+temp/
+cache/
+
+# ============================
+# Backup and miscellaneous
+# ============================
+*.zip
+*.tar
+*.gz
