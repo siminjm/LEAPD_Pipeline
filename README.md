@@ -67,7 +67,6 @@ LEAPD_Pipeline/
 └── .gitignore
 ```
 ---
-
 ## Quick Start
 ```matlab
 %% === Training ===
