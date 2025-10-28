@@ -38,6 +38,8 @@ All processing, feature extraction, and evaluation steps can be executed using s
 ---
 
 ## Repository Structure
+
+```
 LEAPD_Pipeline/
 ├── main_train.m
 ├── main_test.m
@@ -63,6 +65,7 @@ LEAPD_Pipeline/
 ├── README.md
 ├── LICENSE
 └── .gitignore
+```
 ---
 
 ## Quick Start
