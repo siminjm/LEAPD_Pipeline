@@ -79,9 +79,10 @@ results_train   = main_train(cfg);
 
 %% === Testing ===
 cfg2 = struct;
-cfg2.mode          = "correlation";           % or "classification"
+cfg2.mode          = "correlation";
 cfg2.data_test     = "data/EEG_test.mat";
 cfg2.trained_model = "results/train_results/BestParamsAll.mat";
-cfg2.combo_sizes   = 1:10; 
+cfg2.labels_file   = "data/ClinicalLabels_Test.xlsx";  % <-- NEW file for out-of-sample test
+cfg2.combo_sizes   = 1:10;
 cfg2.max_full_combos = 5;
 results_test = main_test(cfg2);
