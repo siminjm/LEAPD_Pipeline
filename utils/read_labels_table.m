@@ -1,22 +1,31 @@
-function T = read_labels_table(labels_file)
-% READ_LABELS_TABLE - load ID/Target from .xlsx or .csv (robust to header names)
-[~,~,ext] = fileparts(labels_file);
-switch lower(ext)
-    case {'.xlsx','.xls'}
-        T = readtable(labels_file, 'FileType','spreadsheet');
-    case '.csv'
-        T = readtable(labels_file, 'FileType','text');
-    otherwise
-        error('Unsupported label file: %s', labels_file);
-end
+function T = read_labels_table(filepath)
+% READ_LABELS_TABLE - Standardize the clinical label file
+%
+% Expects an Excel or CSV file with at least:
+%   ID, and either Target or one of {Days, MoCA, UPDRS}.
+%
+% Returns:
+%   T table with columns ID and Target.
 
-% Try to standardize column names
-vars = lower(string(T.Properties.VariableNames));
-idIdx = find(ismember(vars, ["id","subject","subjectid","sid","name"]),1);
-tgtIdx = find(ismember(vars, ["target","label","score","y","value"]),1);
-if isempty(idIdx) || isempty(tgtIdx)
-    error('Labels table must contain ID and Target columns (or recognizable aliases).');
-end
-T = T(:, [idIdx tgtIdx]);
-T.Properties.VariableNames = {'ID','Target'};
+    if isempty(filepath) || ~isfile(filepath)
+        warning('No labels file found or path invalid: %s', filepath);
+        T = table();
+        return;
+    end
+
+    T = readtable(filepath, 'VariableNamingRule','preserve');
+
+    % Standardize column names
+    if ~ismember('ID', T.Properties.VariableNames)
+        error('Clinical label file must contain an "ID" column.');
+    end
+
+    if ~ismember('Target', T.Properties.VariableNames)
+        possible = intersect(["Days","MoCA","UPDRS","Score","Value"], ...
+                             string(T.Properties.VariableNames));
+        if isempty(possible)
+            error('Clinical label file must contain a "Target" column or recognizable alternative.');
+        end
+        T.Target = T.(possible(1)); % rename automatically
+    end
 end
