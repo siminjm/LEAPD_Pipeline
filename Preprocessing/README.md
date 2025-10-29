@@ -18,7 +18,7 @@ It demonstrates how to clean EEG data by removing line noise, detecting noisy ch
 ---
 
 ## Folder Structure
-
+```
 Preprocessing_MATLAB/
 │
 ├── eeglab/ # EEGLAB toolbox folder (do not rename subfolders)
@@ -29,7 +29,7 @@ Preprocessing_MATLAB/
 ├── remove_line_noise.m # 60 Hz notch filter (configurable)
 │
 └── cleaned_data/ # Automatically generated cleaned EEG files
-
+```
 
 ---
 
