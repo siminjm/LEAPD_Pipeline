@@ -32,6 +32,27 @@ Thumbs.db
 *.log
 
 # ============================
+# EEGLAB / Preprocessing data
+# ============================
+eeglab/
+eeglab*/
+Preprocessing/cleaned_data/
+*.set
+*.fdt
+*.sph
+*.wts
+*.icat
+*.dat
+*.elp
+*.ced
+*.locs
+*.bdf
+*.edf
+*.vhdr
+*.vmrk
+*.eeg
+
+# ============================
 # Data and result directories
 # ============================
 data/
@@ -47,3 +68,11 @@ cache/
 *.zip
 *.tar
 *.gz
+*.7z
+*.rar
+
+# ============================
+# System and hidden files
+# ============================
+desktop.ini
+Icon?
